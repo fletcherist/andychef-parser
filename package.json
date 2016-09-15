@@ -1,0 +1,22 @@
+{
+  "name": "eda",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fletcherist/andychef-parser.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fletcherist/andychef-parser/issues"
+  },
+  "homepage": "https://github.com/fletcherist/andychef-parser#readme",
+  "dependencies": {
+    "phantom": "^2.1.21"
+  }
+}
