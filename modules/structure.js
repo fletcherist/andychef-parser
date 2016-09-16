@@ -3,7 +3,7 @@ const parseStructure = page => {
 		page.evaluate(function () {
 			var _structure = document.querySelector('.entry-content')
 			var paragraphs = _structure.querySelectorAll('p')
-
+			console.log(paragraphs.innerHTML)
 			var stages = []
 			for (var i = 1; i < paragraphs.length; i++) {
 				var image = paragraphs[i].querySelector('a').innerHTML
@@ -19,7 +19,6 @@ const parseStructure = page => {
 		.then(stages => {
 			let reply = []
 			try {
-
 				stages.forEach((stage, i) => {
 					let image = parseImage(stage.image)
 					let steps = parseText(stage.text)

@@ -3,9 +3,10 @@ const fs = require('fs')
 
 const parseIngredients = require('./modules/ingredients')
 const parseStructure = require('./modules/structure')
+const parseTitle = require('./modules/title')
 
 // const url = 'http://andychef.ru/recipes/roastedpork'
-const url = 'http://localhost:3000/'
+const url = process.argv[2] || 'http://localhost:3000/'
 const config = ['--load-images=no']
 const path = __dirname + '/output/recipe.json'
 
@@ -22,12 +23,14 @@ phantom.create(config)
 					console.log(state)
 					Promise.all([
 						parseIngredients(page),
-						parseStructure(page)
+						parseStructure(page),
+						parseTitle(page)
 					]).then(res => {
 						let ingredients = res[0]
 						let stages = res[1]
+						let title = res[2]
 						let recipe = {
-							title: 'test',
+							title: title,
 							stages: stages,
 							ingredients: ingredients
 						}
@@ -41,7 +44,7 @@ phantom.create(config)
 const generateJSON = json => {
 	try {
 		fs.writeFile(path, JSON.stringify(json, null, 2), () => {
-			console.log('json has been generated')
+			console.log('«' + json.title + '»' + ' is crawled!')
 		})
 	} catch (e) {
 		console.log(e)
