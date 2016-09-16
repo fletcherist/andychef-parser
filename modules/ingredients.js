@@ -29,7 +29,7 @@ const formatIngredients = inp => {
 			var formatValue = value.split(' ')
 			amount = parseInt(formatValue[0])
 			measure = formatValue[1]
-			if (name && amount && measure) {
+			if (name && amount) {
 				ingredients.push({
 					product: name,
 					amount: amount,

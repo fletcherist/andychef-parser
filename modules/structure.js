@@ -3,26 +3,31 @@ const parseStructure = page => {
 		page.evaluate(function () {
 			var _structure = document.querySelector('.entry-content')
 			var paragraphs = _structure.querySelectorAll('p')
-			console.log(paragraphs.innerHTML)
 			var stages = []
 			for (var i = 1; i < paragraphs.length; i++) {
-				var image = paragraphs[i].querySelector('a').innerHTML
-				var text = paragraphs[i].innerText
-				var obj = {
-					text: text,
-					image: image
+				if (paragraphs[i]) {
+					var image = paragraphs[i].querySelector('a')
+					var text = paragraphs[i].innerText
+					if (image) {
+						image = image.innerHTML
+					}
+					stages.push({
+						text: text,
+						image: image
+					})
 				}
-				stages.push(obj)
 			}
 			return stages
 		})
 		.then(stages => {
 			let reply = []
 			try {
+
 				stages.forEach((stage, i) => {
 					let image = parseImage(stage.image)
 					let steps = parseText(stage.text)
-					let title = 'Шаг ' + i
+					let num = i + 1
+					let title = ''
 					// push a stage into stages
 					reply.push({
 						title: title,
@@ -42,12 +47,12 @@ const parseStructure = page => {
 
 const parseImage = image => {
 	if (!image) return ''
-	image = image.match(/srcset.{0,150}.jpg/).toString()
+	image = image.match(/srcset.{0,150}.jpg/)
 	if (image) {
-		image = image.match(/http.{0,}\.jpg /).toString()
+		image = image.toString().match(/http.{0,}\.jpg /)
 	}
 	if (image) {
-		image.trim()
+		image.toString().trim()
 	}
 	return image
 }
