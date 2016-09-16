@@ -6,7 +6,6 @@ const parseIngredients = page => {
 		})
 		.then(res => {
 			let ingredients = formatIngredients(res)
-			console.log(ingredients)
 			resolve(ingredients)
 		})
 		.catch(e => {throw new Error()})
