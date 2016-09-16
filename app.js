@@ -21,7 +21,7 @@ phantom.create(config)
 						parseIngredients(page),
 						parseStructure(page)
 					]).then(res => {
-						// console.log(res[0])
+						console.log(res[0])
 						ph.exit()
 					})
 				})

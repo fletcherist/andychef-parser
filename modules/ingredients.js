@@ -6,7 +6,7 @@ const parseIngredients = page => {
 		})
 		.then(res => {
 			let ingredients = formatIngredients(res)
-			// console.log(ingredients)
+			console.log(ingredients)
 			resolve(ingredients)
 		})
 		.catch(e => {throw new Error()})
@@ -34,7 +34,9 @@ const formatIngredients = inp => {
 				ingredients.push({
 					product: name,
 					amount: amount,
-					measure: measure
+					measure: measure,
+					isMain: true,
+					extra: false
 				})
 			} else {
 				console.log('[error]:while parsing ingredient')
