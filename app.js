@@ -4,11 +4,12 @@ const fs = require('fs')
 const parseIngredients = require('./modules/ingredients')
 const parseStructure = require('./modules/structure')
 const parseTitle = require('./modules/title')
+const parseImage = require('./modules/image')
 
 // const url = 'http://andychef.ru/recipes/roastedpork'
 const url = process.argv[2] || 'http://localhost:3000/'
 const config = ['--load-images=no']
-const path = __dirname + '/output/recipe.json'
+const path = __dirname + '/output/'
 
 phantom.create(config)
 	.then(ph => {
@@ -43,10 +44,18 @@ phantom.create(config)
 
 const generateJSON = json => {
 	try {
-		fs.writeFile(path, JSON.stringify(json, null, 2), () => {
+		let savePath = path + getName(url)
+		fs.writeFile(savePath, JSON.stringify(json, null, 2), () => {
 			console.log('«' + json.title + '»' + ' is crawled!')
 		})
 	} catch (e) {
 		console.log(e)
 	}
 }
+
+const getName = url => {
+	if (!url) return 'recipe.json'
+	return url.split('/')[4]+'.json'
+}
+
+getName(url)
